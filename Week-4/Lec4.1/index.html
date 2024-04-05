@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM sum</title>
+</head>
+<body>
+    <input type="number" id="num1"></input><br>
+    <input type="number" id="num2"></input><br>
+    <button onclick="getSum()">Submit</button>
+    <div id="render"></div>
+</body>
+<script>
+    async function getSum(){
+        let num1 = document.getElementById("num1").value
+        let num2 = document.getElementById("num2").value
+        const res = await fetch("https://sum-server.100xdevs.com/sum?a="+num1+"&b="+num2)
+        const ans = await res.text()
+        document.getElementById('render').innerHTML = ans
+    }
+</script>
+</html>
