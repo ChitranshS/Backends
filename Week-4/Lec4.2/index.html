@@ -4,11 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do Basic</title>
 </head>
+
+<body>
+    <input type="text" id="title"placeholder="Title"><br>
+    <input type="text" id="desc" placeholder="Description"><br>
+    <div id="container"></div>
+    
+</body>
 <script>
     let globalID = 1
-    function add(){
-        const title = document.getElementById("title").value
-        const des = document.getElementById("desc").value
+  
         function createChild(title,des,globalID)
         {
             const div = document.createElement('div')
@@ -22,27 +27,28 @@
             div.appendChild(firstChild)
             div.appendChild(secondChild)
             div.appendChild(thirdChild)
-
             div.setAttribute('id',globalID)
             return div
 
         }
 
-        const parent = document.getElementById("container")
-        parent.appendChild(createChild(title,des,globalID++))
-     
-        function done(divID)
-        {
-            const div = document.getElementById(divID)
-            div.children[2].innerHTML = "Done"
+        function dynamicUpdate(state)
+        {   
+            const container = document.getElementById('container')
+            container.innerHTML = ''
+            for (i=0;i<state.length;i++)
+            {
+                const child = createChild(state[i].title,state[i].des,state[i].globalID)
+                container.appendChild(child)
+            }
         }
-    }
+        
+       
+        window.setInterval(async function update()
+        {
+            const response = await fetch('https://sum-server.100xdevs.com/todos')
+            const data = await response.json()
+            dynamicUpdate(data.todos)
+        },1000) 
 </script>
-<body>
-    <input type="text" id="title"placeholder="Title"><br>
-    <input type="text" id="desc" placeholder="Description"><br>
-    <button onclick="add()">Add Task</button>
-    <div id="container"></div>
-    
-</body>
 </html>
