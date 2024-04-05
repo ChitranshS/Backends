@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Basic</title>
+</head>
+<script>
+    let globalID = 1
+    function add(){
+        const title = document.getElementById("title").value
+        const des = document.getElementById("desc").value
+        function createChild(title,des,globalID)
+        {
+            const div = document.createElement('div')
+            const firstChild  = document.createElement('div')
+            firstChild.innerHTML = title
+            const secondChild = document.createElement('div')
+            secondChild.innerHTML = des
+            const thirdChild = document.createElement('button')
+            thirdChild.innerHTML = 'Mark as Done!'
+            thirdChild.setAttribute("onclick",`done(${globalID})`)
+            div.appendChild(firstChild)
+            div.appendChild(secondChild)
+            div.appendChild(thirdChild)
+
+            div.setAttribute('id',globalID)
+            return div
+
+        }
+
+        const parent = document.getElementById("container")
+        parent.appendChild(createChild(title,des,globalID++))
+     
+        function done(divID)
+        {
+            const div = document.getElementById(divID)
+            div.children[2].innerHTML = "Done"
+        }
+    }
+</script>
+<body>
+    <input type="text" id="title"placeholder="Title"><br>
+    <input type="text" id="desc" placeholder="Description"><br>
+    <button onclick="add()">Add Task</button>
+    <div id="container"></div>
+    
+</body>
+</html>
