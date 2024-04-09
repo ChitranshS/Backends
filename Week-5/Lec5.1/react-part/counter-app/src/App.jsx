@@ -1,17 +1,24 @@
 import { useState } from "react"
 function App() {
   const [count,changeCount] = useState(0)
-  function update()
-  {
-    changeCount(count+1)
-  }
+
   return (
     <div>
-      <button onClick={update}>
-        hi there the count is {count}
-      </button>
+      <CustomButton count={count} changeCount={changeCount}/>
+      <CustomButton count={count} changeCount={changeCount}/>
     </div>
   )
+}
+// components
+function CustomButton(props)
+{
+  function update()
+  {
+    props.changeCount(props.count+1)
+  }
+  return <button onClick={update}>
+    Counter is {props.count}
+  </button>
 }
 
 export default App
