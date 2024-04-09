@@ -1,0 +1,39 @@
+<!-- Task : Don't use react yet just maintain a state variable for a simple counter app then code for it -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primitive Methods</title>
+</head>
+<body>
+    <div id="buttonParent">
+
+    </div>
+</body>
+<script>
+    let state = {
+        count:0
+    }
+    function onButtonClicked()
+    {
+        state.count++;
+        buttonReRender()
+    }
+    function buttonReRender()
+    {
+        document.getElementById("buttonParent").innerHTML = ""
+        const component = buttonUpdate(state.count)
+        document.getElementById("buttonParent").appendChild(component)
+    }
+
+    function buttonUpdate(count)
+    {
+        const button = document.createElement("button")
+        button.innerHTML = `Counter : ${count}`
+        button.setAttribute("onclick","onButtonClicked()")
+        return button
+    }
+
+    buttonReRender()
+</script>
+</html>
