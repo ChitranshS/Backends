@@ -42,7 +42,7 @@ app.put('/completed',async (req,res)=>{
            msg:"You have sent the wrong inputs"
        })
     }
-   await todo.update({
+   await todo.updateOne({
         _id:req.body.id
     },{
         completed :true
@@ -52,3 +52,4 @@ app.put('/completed',async (req,res)=>{
     })
 })
 app.listen(3000)
+console.log("Server is running on port 3000")
