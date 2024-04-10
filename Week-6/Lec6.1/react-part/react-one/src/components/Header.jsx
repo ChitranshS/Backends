@@ -1,4 +1,5 @@
-export function Header({title})
+import { memo } from "react"
+export const Header = memo(function Header({title})
 {
 
     return (
@@ -6,4 +7,5 @@ export function Header({title})
             {title}
         </div>
     )
-}
+})
+
