@@ -34,6 +34,7 @@ function Button({setCount})
 }
 function CountShow()
 {
+  // Use the context stored in CountContext to fetch the value and store in the count variable without the need of passing down the prop value or propDrilling
   const count = useContext(CountContext)
   return(
     <>
