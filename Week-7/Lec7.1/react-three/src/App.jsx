@@ -1,3 +1,4 @@
+// This is about prop drilling in react
 import { useState } from 'react'
 function App() {
   const [count,setCount] = useState(0)
