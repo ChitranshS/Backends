@@ -61,7 +61,26 @@ function signinMiddleware(req,res,next)
 }
 
 
-module.exports = {signupMiddleware,signinMiddleware}
+function updateMiddleware(req,res,next){
+    const updateSchema = zod.object({
+        password:zod.string().min(6).optional(),
+        firstName : zod.string().max(10).optional(),
+        lastName :zod.string().max(10).optional()
+    })
+    const parsedRequest = updateSchema.safeParse(req.body)
+    if(!parsedRequest.success)
+    {
+        res.status(411).json({
+
+            message: "Error while logging in"
+        })
+        return
+    }
+    
+    next()
+}
+
+module.exports = {signupMiddleware,signinMiddleware,updateMiddleware}
 // signupMiddleware({
     // username:"Jk9oI@example.com",
     // password:"12345",

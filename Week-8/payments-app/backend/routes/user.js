@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const {User} = require('../db')
-const {signupMiddleware, signinMiddleware, authMiddleware} = require('../middleware/index')
+const {signupMiddleware, signinMiddleware , updateMiddleware} = require('../middleware/index')
+const {authMiddleware} = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET_KEY} = require('../config')
 // router.use(authMiddleware)
@@ -41,6 +42,49 @@ router.post('/signin' , signinMiddleware, async(req,res)=>{
             message: "Error while logging in"
         })
     }
+})
+
+router.post('/',authMiddleware,updateMiddleware,async(req,res)=>{
+  
+  await User.updateOne({
+    _id:req.userID
+  },{
+    $set:{
+      ...req.body
+  }
+  })
+
+   res.status(200).json({
+    message:"Update Successful"
+   })
+
+})
+
+router.get('/bulk',async(req,res)=>{
+
+    const filter = req.query.filter 
+    const users = await User.find({
+        $or:[{
+            firstName: {
+                "$regex":filter
+            }
+        }
+            ,
+            
+         {   lastName : {
+                "$regex":filter
+            }
+        }]
+    })
+
+    res.json({
+        user : users.map(user=>({
+            username:user.username,
+            firstName: user.firstName,
+            lastName:user.lastName,
+            _id: user._id
+        }))
+    })
 })
 
 module.exports = {userRouter:router}
