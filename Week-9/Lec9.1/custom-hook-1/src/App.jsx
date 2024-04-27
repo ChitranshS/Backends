@@ -22,6 +22,7 @@ function Todo()
     <div>
       {todos.map(todo => <InsideTodo todo={todo}/>)}
     </div>
+    
   )
 }
 function InsideTodo({todo})
