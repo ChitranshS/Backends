@@ -4,6 +4,7 @@ function App() {
 
   return (
     <>
+    <Todo title="t1" desc = "d1" done ={false}/>
     </>
   )
 }
@@ -12,12 +13,12 @@ interface TodoInterface {
   desc:string
   done:boolean
 }
-type TodoType = {
-  title:string
-  desc:string
-  done:boolean 
+// type TodoType = {
+//   title:string
+//   desc:string
+//   done:boolean 
 
-}
+// }
 function Todo (props : TodoInterface)
 {
  return( 
