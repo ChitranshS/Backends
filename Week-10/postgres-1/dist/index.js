@@ -21,9 +21,10 @@ async function createUsersTable()
 async function insertIntoTable()
 {   
     await client.connect()
-    const insertionString = `INSERT into users (username,email,password) VALUES ('chitransh','nigga1@gmail.com','chic123')`
+    const data = ['chitranhs','asda@a.com','213dss']
+    const insertionString = `INSERT into users (username,email,password) VALUES ($1,$2,$3)`
     try{
-    const success = await client.query(insertionString)
+    const success = await client.query(insertionString,data)
     console.log("insertion successful" , success)
     }
     catch(e)
