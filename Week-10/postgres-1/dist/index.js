@@ -18,6 +18,32 @@ async function createUsersTable()
     console.log(result)
 }
 
+async function  createAddressTable()
+{
+    await client.connect()
+    const query = `CREATE TABLE addresses(
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER NOT NULL,
+        city VARCHAR(100) NOT NULL,
+        country VARCHAR(100) NOT NULL,
+        street VARCHAR(255) NOT NULL,
+        pincode VARCHAR(20),
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+    )`
+    try {
+        const success = await client.query(query)
+        console.log(success)
+
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+    finally{
+        client.end()
+    }
+}
 async function insertIntoTable()
 {   
     await client.connect()
@@ -37,4 +63,4 @@ async function insertIntoTable()
     }
 }
 
-insertIntoTable()
+createAddressTable()
