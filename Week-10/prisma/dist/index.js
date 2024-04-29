@@ -27,4 +27,21 @@ function insertUser(email, firstName, lastName, password) {
         console.log(res);
     });
 }
-insertUser("asda1@a.com", "chitranh", "sri", "asdasd");
+function updateUser(email, password) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield prisma.user.update({
+            where: {
+                email: email
+            },
+            data: {
+                password
+            },
+            select: {
+                id: true
+            }
+        });
+        console.log(res);
+    });
+}
+// insertUser("asda1@a.com","chitranh","sri","asdasd")
+updateUser("asda1@a.com", "nig1212");
